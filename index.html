@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#071014" />
+    <title>LAST SUSPECT — Tactical Extraction</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800;900&family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="style.css" />
+    <script type="importmap">
+      {"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js"}}
+    </script>
+  </head>
+  <body>
+    <div id="game-shell">
+      <canvas id="game"></canvas>
+      <div id="vignette"></div>
+      <div id="damage-flash"></div>
+
+      <section id="start-screen" class="screen visible">
+        <div class="start-art">
+          <div class="art-grid"></div>
+          <div class="orbit orbit-a"></div><div class="orbit orbit-b"></div>
+          <div class="art-astronaut red"><i></i><b></b></div>
+          <div class="art-astronaut cyan"><i></i><b></b></div>
+          <div class="art-astronaut lime"><i></i><b></b></div>
+          <div class="art-stamp">ROUND 01 <span>•</span> 02:00</div>
+          <div class="art-caption">TRUST IS A<br /><em>WEAPON.</em></div>
+        </div>
+        <div class="start-copy">
+          <div class="eyebrow"><span class="eyebrow-dot"></span> EMERGENCY PROTOCOL / 07</div>
+          <h1>LAST<br /><span>SUSPECT</span></h1>
+          <p class="subtitle">A tactical extraction round. One of you is lying.</p>
+          <p class="intro">Finish the ship's objectives, keep your eyes open, and figure out who's hunting the crew before the clock runs dry.</p>
+          <div class="briefing">
+            <div class="brief-icon">◈</div>
+            <div><strong>YOUR ORDERS</strong><span>3 objectives. 5 crewmates. 1 traitor.</span></div>
+            <div class="round-time">02:00</div>
+          </div>
+          <button id="start-button" class="primary-button">DEPLOY <span>→</span></button>
+          <div class="start-hint">A RANDOM ROLE IS ASSIGNED EACH ROUND</div>
+          <div class="start-controls"><span><kbd>W A S D</kbd> MOVE</span><span><kbd>MOUSE</kbd> LOOK</span><span><kbd>E</kbd> INTERACT</span></div>
+        </div>
+      </section>
+
+      <div id="hud" class="hidden">
+        <header class="topbar">
+          <div class="brand"><span class="brand-mark">L</span><span>LAST<span class="brand-dim">/</span>SUSPECT</span></div>
+          <div class="round-chip"><span class="live-dot"></span> LIVE ROUND <b>01</b></div>
+          <div class="top-right"><span id="role-chip" class="role-chip">CREW</span><button id="pause-button" class="icon-button" aria-label="Pause">Ⅱ</button></div>
+        </header>
+
+        <aside class="mission-panel panel">
+          <div class="panel-kicker"><span>MISSION</span><span id="task-count">00 / 03</span></div>
+          <h2>SECURE THE<br />DROP ZONE</h2>
+          <div class="mission-rule"></div>
+          <div id="task-list" class="task-list"></div>
+          <div class="panel-foot"><span class="signal-icon">◉</span> <span id="mission-status">UPLOAD THE FLIGHT DATA</span></div>
+        </aside>
+
+        <div id="round-clock" class="round-clock"><span class="clock-label">ROUND TIME</span><strong id="timer">02:00</strong><div class="timer-track"><i id="timer-fill"></i></div></div>
+
+        <div class="round-state" id="round-state"><span class="state-pip"></span><span>NO CONTACT</span></div>
+
+        <div class="crosshair"><i></i><i></i><i></i><i></i><b></b></div>
+        <div id="target-label" class="target-label"></div>
+        <div id="interact-prompt" class="interact-prompt hidden"><kbd>E</kbd><span>INTERACT</span></div>
+
+        <div class="bottom-left">
+          <div class="player-card"><div class="player-avatar"><span>✦</span></div><div><strong>OPERATIVE 07</strong><span id="status-line">READY FOR DEPLOYMENT</span></div><div class="health"><i></i><i></i><i></i></div></div>
+          <div class="weapon-card"><div class="weapon-icon">⌁</div><div><strong id="weapon-name">MK.4 SIDEARM</strong><span id="weapon-status">SEMI-AUTO · UNLIMITED</span></div><kbd id="weapon-key">LMB</kbd></div>
+        </div>
+
+        <div class="bottom-right">
+          <button id="report-button" class="action-button report-button"><span class="action-symbol">!</span><span><b>REPORT</b><small>BODY NEARBY <kbd>R</kbd></small></span></button>
+          <button id="emergency-button" class="action-button emergency-button"><span class="action-symbol">◉</span><span><b>EMERGENCY</b><small>CALL MEETING <kbd>Q</kbd></small></span></button>
+          <button id="ability-button" class="action-button ability-button"><span class="action-symbol" id="ability-symbol">⌁</span><span><b id="ability-title">SABOTAGE</b><small id="ability-caption">LIGHTS OUT <kbd>G</kbd></small></span></button>
+        </div>
+
+        <div id="toast" class="toast"></div>
+        <div class="objective-banner" id="objective-banner"><span class="banner-icon">◈</span><span id="banner-text">OBJECTIVE COMPLETE</span></div>
+        <div id="meeting-screen" class="modal-screen">
+          <div class="meeting-card">
+            <div class="meeting-top"><span class="meeting-alert">!</span><span>EMERGENCY SESSION</span><span id="meeting-source" class="meeting-source">BODY REPORTED</span></div>
+            <h2>WHO'S THE<br /><em>IMPOSTOR?</em></h2>
+            <p id="meeting-subtitle">Talk is cheap. Make your vote count.</p>
+            <div id="vote-grid" class="vote-grid"></div>
+            <div class="meeting-footer"><span>VOTE TO EJECT A SUSPECT</span><button id="vote-button" class="primary-button" disabled>CAST VOTE <span>→</span></button></div>
+          </div>
+        </div>
+        <div id="result-screen" class="modal-screen">
+          <div class="result-card"><div id="result-icon" class="result-icon">✦</div><div id="result-kicker" class="eyebrow">ROUND COMPLETE</div><h2 id="result-title">CREW<br /><em>SECURED.</em></h2><p id="result-copy">The drop zone is safe. Nice work, operative.</p><div class="result-stats"><div><b id="stat-objectives">0</b><span>OBJECTIVES</span></div><div><b id="stat-survivors">5</b><span>SURVIVORS</span></div><div><b id="stat-time">00:00</b><span>TIME LEFT</span></div></div><button id="restart-button" class="primary-button">RUN IT BACK <span>↻</span></button><div class="result-role" id="result-role">YOU WERE CREW</div></div>
+        </div>
+        <div id="pause-screen" class="modal-screen">
+          <div class="pause-card"><div class="eyebrow">ROUND PAUSED</div><h2>TAKE A<br /><em>BREATHER.</em></h2><p>Controls: <kbd>WASD</kbd> move · <kbd>SHIFT</kbd> sprint · <kbd>E</kbd> interact · <kbd>R</kbd> report · <kbd>Q</kbd> meeting</p><button id="resume-button" class="primary-button">BACK TO ROUND <span>→</span></button></div>
+        </div>
+
+        <div id="mobile-controls" class="mobile-controls">
+          <div id="stick-zone" class="stick-zone"><div id="stick-knob" class="stick-knob"></div></div>
+          <div class="mobile-actions"><button id="mobile-use">USE</button><button id="mobile-fire">FIRE</button><button id="mobile-report">REPORT</button></div>
+        </div>
+      </div>
+      <div id="loading" class="loading"><span class="loader-mark">L</span><span>INITIALIZING ROUND</span></div>
+    </div>
+    <script type="module" src="src/main.js"></script>
+  </body>
+</html>
