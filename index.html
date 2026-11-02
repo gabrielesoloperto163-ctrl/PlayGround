@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Starfall Defender</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="hud">
+      <div class="brand">STARFALL DEFENDER</div>
+      <div class="stats">
+        <span>Puntuación: <strong id="score">0</strong></span>
+        <span>Vida: <strong id="lives">5</strong></span>
+        <span>Oleada: <strong id="wave">1</strong></span>
+      </div>
+    </div>
+
+    <canvas id="gameCanvas" width="960" height="600" aria-label="Space shooter game"></canvas>
+
+    <div id="overlay" class="overlay visible">
+      <div class="panel">
+        <h1>Starfall Defender</h1>
+        <p>Protege la base y derriba los escuadrones alienígenas.</p>
+        <ul>
+          <li>Mueve la nave: <strong>WASD</strong> o <strong>Flechas</strong></li>
+          <li>Dispara: <strong>Espacio</strong></li>
+          <li>Reinicia: <strong>Enter</strong></li>
+        </ul>
+        <button id="startButton">Jugar</button>
+      </div>
+    </div>
+
+    <div id="touchControls" class="touch-controls" aria-label="Touch controls">
+      <button data-control="left">◀</button>
+      <button data-control="right">▶</button>
+      <button data-control="shoot">Fuego</button>
+    </div>
+
+    <script src="game.js"></script>
+  </body>
+</html>
