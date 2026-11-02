@@ -23,7 +23,7 @@ Gioco browser di conquista a squadre, ottimizzato anche per schermi touch. Condu
 
 ### Avvio
 
-Apri `index.html` in un browser moderno oppure servi la cartella con un server statico, ad esempio:
+Avvia un server statico nella cartella del progetto (necessario perché il gioco usa moduli JavaScript), ad esempio:
 
 ```bash
 python3 -m http.server 3002
@@ -36,4 +36,4 @@ Poi visita `http://localhost:3002`.
 - **Desktop:** WASD o frecce per muoversi, mouse per mirare, click o spazio per sparare, R per ricaricare, Esc o il pulsante pausa per fermare la partita.
 - **Mobile:** stick virtuale per muoversi, tocca il campo per mirare, tieni premuto **FUOCO** per sparare e usa **RICARICA** quando serve.
 
-La partita include una mappa ampia, cinque punti di controllo, bot alleati e avversari con respawn, combattimento, HUD tattico, minimappa e schermata di vittoria/sconfitta. Non richiede librerie o asset esterni per funzionare (il font personalizzato è facoltativo).
+La partita include una mappa ampia, cinque punti di controllo, bot alleati e avversari con respawn, combattimento, HUD tattico, minimappa e schermata di vittoria/sconfitta. Three.js viene caricato dalla CDN jsDelivr e il font dalla CDN Google Fonts: è necessaria una connessione Internet.
