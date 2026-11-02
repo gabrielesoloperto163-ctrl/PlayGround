@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#f6f1ff" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='20' fill='%237657d8'/%3E%3Ctext x='32' y='45' text-anchor='middle' font-family='sans-serif' font-size='42' font-weight='700' fill='white'%3Em%3C/text%3E%3C/svg%3E" />
+  <title>Miniverse — il tuo telefono</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="stage">
+    <section class="intro" aria-label="Introduzione">
+      <div class="brand-mark">m<span>✳</span></div>
+      <p class="eyebrow">IL TUO SPAZIO DIGITALE</p>
+      <h1>Tutto quello<br>che ti serve,<br><span>in tasca.</span></h1>
+      <p class="intro-copy">Un piccolo universo da esplorare.<br>Cerca, crea, organizza la tua giornata.</p>
+      <div class="intro-foot"><span class="pulse-dot"></span> Il tuo telefono è pronto</div>
+      <div class="orbit orbit-one"></div><div class="orbit orbit-two"></div>
+    </section>
+
+    <section class="phone-shell" aria-label="Telefono interattivo">
+      <div class="phone-frame">
+        <div class="phone-screen" id="phoneScreen">
+          <div class="status-bar"><span id="statusTime">09:41</span><div class="island"></div><span class="status-icons">◔  ▮▮  ▰</span></div>
+          <div class="screen-content" id="screenContent"></div>
+          <nav class="phone-nav" aria-label="Navigazione">
+            <button class="nav-button active" data-page="home" aria-label="Home"><span>⌂</span></button>
+            <button class="nav-button" data-page="search" aria-label="Cerca"><span>⌕</span></button>
+            <button class="nav-button" data-page="notes" aria-label="Note"><span>▤</span></button>
+          </nav>
+          <div class="home-indicator"></div>
+          <div class="toast" id="toast" role="status"></div>
+        </div>
+      </div>
+      <div class="phone-shadow"></div>
+    </section>
+
+    <aside class="hint-card"><span class="hint-icon">✦</span><div><strong>Prova tu</strong><p>Apri Google e chiedi<br>qualsiasi cosa all'AI.</p></div><span class="hint-arrow">↗</span></aside>
+  </main>
+  <script src="app.js"></script>
+</body>
+</html>
