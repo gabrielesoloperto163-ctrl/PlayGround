@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#07111d" />
+  <link rel="icon" href="data:," />
+  <title>OVERTIME — Rocket Arena</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800;900&family=DM+Mono:wght@400;500&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <main class="game-shell">
+    <canvas id="game" aria-label="3D Rocket Arena game"></canvas>
+    <div class="vignette"></div>
+    <header class="topbar">
+      <a class="brand" href="#" aria-label="Overtime home"><span class="brand-mark">O</span><span>OVERTIME<span class="brand-dot">.</span></span></a>
+      <div class="match-tag"><i></i> EXHIBITION MATCH <span>•</span> 1V1</div>
+      <button class="sound-button" id="soundButton" aria-label="Toggle sound"><span class="sound-icon">♪</span><span class="sound-label">SOUND ON</span></button>
+    </header>
+
+    <section class="scoreboard" aria-label="Scoreboard">
+      <div class="team-score blue-score"><div class="team-identity"><span class="team-swatch"></span><div><b>YOU</b><small>BLUE COMET</small></div></div><strong id="playerScore">0</strong></div>
+      <div class="score-center"><span class="score-label">FIRST TO</span><span class="score-target">03</span><span class="score-divider"></span><span class="clock" id="clock">03:00</span></div>
+      <div class="team-score orange-score"><strong id="botScore">0</strong><div class="team-identity"><div><b>CPU</b><small>EMBER AI</small></div><span class="team-swatch"></span></div></div>
+    </section>
+
+    <div class="status-pill" id="statusPill"><span class="status-pulse"></span><span id="statusText">KICKOFF IN <b>3</b></span></div>
+    <div class="goal-flash" id="goalFlash"><span class="goal-kicker">WHAT A SHOT</span><strong>GOAL!</strong><span class="goal-scorer" id="goalScorer">BLUE COMET SCORES</span></div>
+
+    <aside class="boost-panel"><div class="boost-label"><span>BOOST</span><b id="boostText">100</b></div><div class="boost-track"><div id="boostFill"></div></div><div class="boost-cells"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div></aside>
+    <div class="speedometer"><span class="speed-value" id="speedValue">000</span><span class="speed-unit">KPH</span><span class="speed-ring"><i></i></span></div>
+    <div class="controls-hint"><kbd>W</kbd><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd><span>DRIVE</span><kbd class="wide">SPACE</kbd><span>JUMP</span><kbd class="wide">SHIFT</kbd><span>BOOST</span></div>
+    <button class="pause-button" id="pauseButton" aria-label="Pause game"><span>Ⅱ</span></button>
+
+    <div class="screen-overlay" id="menuOverlay">
+      <div class="menu-card">
+        <div class="eyebrow"><span></span> ROCKET ARENA · SEASON 01</div>
+        <h1>OWN THE<br><em>ARENA.</em></h1>
+        <p>One car. One ball. Three goals to glory.<br>Can you outplay the machine?</p>
+        <button class="primary-button" id="playButton"><span>START MATCH</span><b>↗</b></button>
+        <div class="menu-foot"><span>3 MIN MATCH</span><i></i><span>FIRST TO 3</span><i></i><span>VS. CPU</span></div>
+      </div>
+      <div class="menu-side-note">THE FUTURE OF<br>FOOTBALL IS FAST.</div>
+    </div>
+
+    <div class="screen-overlay hidden" id="pauseOverlay">
+      <div class="menu-card compact-card"><div class="eyebrow"><span></span> MATCH PAUSED</div><h2>TAKE A<br><em>BREATHER.</em></h2><button class="primary-button" id="resumeButton"><span>RESUME MATCH</span><b>↗</b></button><button class="text-button" id="restartButton">RESTART MATCH</button></div>
+    </div>
+    <div class="screen-overlay hidden" id="endOverlay">
+      <div class="menu-card compact-card"><div class="eyebrow"><span></span> FINAL WHISTLE</div><h2 id="endTitle">YOU DID<br><em>IT.</em></h2><p id="endSubtitle">The arena is yours.</p><button class="primary-button" id="rematchButton"><span>PLAY AGAIN</span><b>↗</b></button></div>
+    </div>
+
+    <div class="touch-controls" aria-label="Touch controls">
+      <div class="touch-pad"><button data-control="left" aria-label="Steer left">‹</button><button data-control="up" aria-label="Drive forward">⌃</button><button data-control="down" aria-label="Reverse">⌄</button><button data-control="right" aria-label="Steer right">›</button></div>
+      <div class="touch-actions"><button class="touch-boost" data-control="boost"><span>BOOST</span></button><button class="touch-jump" data-control="jump"><span>JUMP</span></button></div>
+    </div>
+    <div class="toast" id="toast">PAUSED</div>
+  </main>
+  <script type="module" src="game.js"></script>
+</body>
+</html>
